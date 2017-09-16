@@ -1,0 +1,9 @@
+D:\Media\Documents\GitHub\MaverickCheats\Build\Debug\Updater.exe.config
+D:\Media\Documents\GitHub\MaverickCheats\Build\Debug\Updater.exe
+D:\Media\Documents\GitHub\MaverickCheats\Build\Debug\Updater.pdb
+D:\Media\Documents\GitHub\MaverickCheats\Updater\obj\Debug\Updater.csprojResolveAssemblyReference.cache
+D:\Media\Documents\GitHub\MaverickCheats\Updater\obj\Debug\Updater.Download.resources
+D:\Media\Documents\GitHub\MaverickCheats\Updater\obj\Debug\Updater.csproj.GenerateResource.Cache
+D:\Media\Documents\GitHub\MaverickCheats\Updater\obj\Debug\Updater.csproj.CoreCompileInputs.cache
+D:\Media\Documents\GitHub\MaverickCheats\Updater\obj\Debug\Updater.exe
+D:\Media\Documents\GitHub\MaverickCheats\Updater\obj\Debug\Updater.pdb

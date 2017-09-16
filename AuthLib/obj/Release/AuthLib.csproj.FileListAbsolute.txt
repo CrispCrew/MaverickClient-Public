@@ -1,0 +1,8 @@
+D:\Media\Documents\GitHub\MaverickCheats\Build\Release\AuthLib.dll
+D:\Media\Documents\GitHub\MaverickCheats\Build\Release\AuthLib.pdb
+D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Release\AuthLib.csprojResolveAssemblyReference.cache
+D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Release\MaverickClient.Download.resources
+D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Release\AuthLib.csproj.GenerateResource.Cache
+D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Release\AuthLib.csproj.CoreCompileInputs.cache
+D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Release\AuthLib.dll
+D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Release\AuthLib.pdb
