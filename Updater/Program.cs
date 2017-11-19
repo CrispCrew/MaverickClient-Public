@@ -33,6 +33,22 @@ namespace Updater
             {
                 Console.WriteLine("Local Loader Outdated, downloaded new loader in current folder!");
 
+                Process[] processes = Process.GetProcessesByName("MaverickClient");
+
+                foreach (Process process in processes)
+                {
+                    try
+                    {
+                        process.Kill();
+                        process.Close();
+                        process.CloseMainWindow();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
                 //Delete client to update client
                 if (File.Exists(Environment.CurrentDirectory + "\\" + "MaverickClient.exe"))
                 {

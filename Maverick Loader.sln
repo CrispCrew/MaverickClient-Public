@@ -1,14 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maverick Client", "MaverickClient\Maverick Client.csproj", "{7AFECE10-70F7-47EA-8E9D-7C9490FCCBD8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FC9178AC-C3E7-40E8-808A-29FD5B82171D} = {FC9178AC-C3E7-40E8-808A-29FD5B82171D}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maverick Server", "MaverickServer\Maverick Server.csproj", "{B13858E5-B55F-4089-9505-4AB02BA605CC}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthLib", "AuthLib\AuthLib.csproj", "{FC9178AC-C3E7-40E8-808A-29FD5B82171D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{3C068B88-23B5-4C7E-9468-64ED68E5A1A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{C0D7CB27-73B5-42CF-B93B-AD78431DED8A}"
 EndProject

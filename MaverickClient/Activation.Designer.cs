@@ -53,7 +53,7 @@
             this.formSkin1.Name = "formSkin1";
             this.formSkin1.Size = new System.Drawing.Size(291, 128);
             this.formSkin1.TabIndex = 0;
-            this.formSkin1.Text = "Maverick Cheats :: Activation";
+            this.formSkin1.Text = "Maverick Cheats :: Key Activation";
             // 
             // flatClose1
             // 

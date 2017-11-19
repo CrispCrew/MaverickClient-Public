@@ -19,6 +19,7 @@ namespace MaverickClient
 
         public string Token;
         private List<Product> products;
+        private string Licenses = "";
 
         public Account(string Token, List<Product> products_list)
         {
@@ -43,13 +44,15 @@ namespace MaverickClient
             if (AccountDetails.Contains("|"))
             {
                 string[] AccountInfo = AccountDetails.Split('|');
+
+                Console.WriteLine("Account Details: " + AccountDetails);
                 
                 this.memberShipID.Text += AccountInfo[0];
                 this.memberName.Text += AccountInfo[1];
                 this.memberHWID.Text += AccountInfo[2];
                 this.memberDiscord.Text += AccountInfo[3];
                 if (AccountInfo.Length > 5) { this.memberProducts.Text += AccountInfo[5].Replace("1", "GTA5").Replace("2", " CS:GO"); } else { this.memberProducts.Text += "-"; }
-                if (AccountInfo.Length > 6) { this.memberLicenses.Text += AccountInfo[6]; } else { this.memberLicenses.Text += "-"; }
+                if (AccountInfo.Length > 8) { this.Licenses += AccountInfo[8]; } else { this.Licenses += "-"; }
             }
             else
             {
@@ -63,7 +66,7 @@ namespace MaverickClient
             
             //Products
             string owned = client.Products(Token).Replace("Packages=", "");
-            if (owned != "")
+            if (owned != "" && owned != "API Quota Reached")
             {
                 if (!owned.Contains("|"))
                 {
@@ -106,6 +109,10 @@ namespace MaverickClient
                         productInfoLabel.Text += "Status: " + Status + Environment.NewLine + Environment.NewLine;
                     }
                 }
+            }
+            else if (owned == "API Quota Reached")
+            {
+                MessageBox.Show("Your IP has been temporarily banned as a security percaution, try again in a few minutes!");
             }
             else
             {
@@ -165,8 +172,21 @@ namespace MaverickClient
         /// <param name="e"></param>        
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            this.memberLicenses.Text = "License Keys: (hidden)";
             this.Hide();
         }
         #endregion
+
+        private void showLicenses_Click(object sender, EventArgs e)
+        {
+            if (this.memberLicenses.Text == "License Keys: (hidden)")
+            {
+                this.memberLicenses.Text = "License Keys: " + Licenses;
+            }
+            else
+            {
+                this.memberLicenses.Text = "License Keys: (hidden)";
+            }
+        }
     }
 }

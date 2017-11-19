@@ -1,1 +1,1 @@
-# MaverickClient - Public
+# MaverickCheats Client

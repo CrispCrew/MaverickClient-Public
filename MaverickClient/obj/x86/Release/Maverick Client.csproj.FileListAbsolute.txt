@@ -1,0 +1,19 @@
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\bin\x86\Release\MaverickClient.exe.config
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\bin\x86\Release\MaverickClient.exe
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\bin\x86\Release\MaverickClient.pdb
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\bin\x86\Release\AuthLib.dll
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\bin\x86\Release\Theme.dll
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\bin\x86\Release\AuthLib.pdb
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\Maverick Client.csprojResolveAssemblyReference.cache
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Account.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.ActivationPopup.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Credits.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Activation.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Login.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Main.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Properties.Resources.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Register.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.Theme.FlatClose.resources
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\Maverick Client.csproj.GenerateResource.Cache
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.exe
+D:\Media\Documents\SourceTree\MaverickCheats\MaverickClient\obj\x86\Release\MaverickClient.pdb

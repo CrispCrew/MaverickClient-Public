@@ -5,23 +5,24 @@ namespace MaverickClient
 {
     public class Product
     {
-        int Id; //UID
+        int ID; //UID
         string Name; //Product Name
         string File; //Product Media
+        string ProcessName; //Product Proc Name
         int Status; //Product Status
         int Version; //Product Version
-        long AutoLaunch;
+        long AutoLaunch; //Product AutoLaunch
 
         #region Gets / Sets
         public int id
         {
             get
             {
-                return Id;
+                return ID;
             }
             set
             {
-                Id = value;
+                ID = value;
             }
         }
 
@@ -46,6 +47,18 @@ namespace MaverickClient
             set
             {
                 File = value;
+            }
+        }
+
+        public string processname
+        {
+            get
+            {
+                return ProcessName;
+            }
+            set
+            {
+                ProcessName = value;
             }
         }
 
@@ -86,14 +99,15 @@ namespace MaverickClient
         }
         #endregion
 
-        public Product(int id, string name, string file, int status, int version, long autolaunch)
+        public Product(int ID, string Name, string ProcessName, string File, int Status, int Version, long AutoLaunch)
         {
-            this.Id = id;
-            this.Name = name;
-            this.File = file;
-            this.Status = status;
-            this.Version = version;
-            this.AutoLaunch = autolaunch;
+            this.ID = ID;
+            this.Name = Name;
+            this.File = File;
+            this.ProcessName = ProcessName;
+            this.Status = Status;
+            this.Version = Version;
+            this.AutoLaunch = AutoLaunch;
         }
 
         public string ProductStatus()

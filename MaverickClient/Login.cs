@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Windows.Forms;
 using AuthLib.Functions.Client;
-using CrispyCheats;
 using System.IO;
 using MaverickClient.Functions;
 using System.Net;
 using System.Diagnostics;
+using System.Threading;
 
 namespace MaverickClient
 {
     public partial class Login : Form
     {
-        public static string LocalVersion = "0.21";
+        public static string LocalVersion = "0.41";
 
         public static Client client = Program.client;
 
@@ -25,40 +25,47 @@ namespace MaverickClient
 
             Console.WriteLine("Local Version: " + LocalVersion + " - Server Version: " + ServerVersion);
 
-            if (LocalVersion != client.Version())
+            if (ServerVersion != "API Quota Reached" && ServerVersion != "Connection Quota Reached")
             {
-                MessageBox.Show("Updating");
-
-                retry:
-                //Run AutoUpdater
-                if (File.Exists(Environment.CurrentDirectory + "\\Updater.exe"))
+                if (LocalVersion != ServerVersion)
                 {
-                    Console.WriteLine("Updater Executable Found!");
+                    MessageBox.Show("Updating");
 
-                    Process process = new Process();
-                    ProcessStartInfo startInfo = new ProcessStartInfo()
+                    retry:
+                    //Run AutoUpdater
+                    if (File.Exists(Environment.CurrentDirectory + "\\Updater.exe"))
                     {
-                        WorkingDirectory = Environment.CurrentDirectory + "\\",
-                        //UseShellExecute = false,
-                        FileName = Environment.CurrentDirectory + "\\" + "Updater.exe",
-                        //WindowStyle = ProcessWindowStyle.Hidden,
-                        //CreateNoWindow = true,
-                        UseShellExecute = true,
-                        Verb = "runas"
-                    };
-                    process.StartInfo = startInfo;
-                    process.Start();
-                }
-                else
-                {
-                    Console.WriteLine("AutoUpdater Executable Missing! -> Recovery: Trying to download AutoUpdater");
+                        Console.WriteLine("Updater Executable Found!");
 
-                    new WebClient().DownloadFile("http://maverickcheats.eu/Maverick/Updater.exe", Environment.CurrentDirectory + "\\Updater.exe");
+                        Process process = new Process();
+                        ProcessStartInfo startInfo = new ProcessStartInfo()
+                        {
+                            WorkingDirectory = Environment.CurrentDirectory + "\\",
+                            //UseShellExecute = false,
+                            FileName = Environment.CurrentDirectory + "\\" + "Updater.exe",
+                            //WindowStyle = ProcessWindowStyle.Hidden,
+                            //CreateNoWindow = true,
+                            UseShellExecute = true,
+                            Verb = "runas"
+                        };
+                        process.StartInfo = startInfo;
+                        process.Start();
+                    }
+                    else
+                    {
+                        Console.WriteLine("AutoUpdater Executable Missing! -> Recovery: Trying to download AutoUpdater");
 
-                    goto retry;
-                }
+                        new WebClient().DownloadFile("https://maverickcheats.eu/downloads/Updater.exe", Environment.CurrentDirectory + "\\Updater.exe");
 
-                Environment.Exit(0);
+                        goto retry;
+                    }
+                    
+                    Environment.Exit(0);
+                }             
+            }
+            else
+            {
+                MessageBox.Show("Your IP has been temporarily banned as a security percaution, try again in a few minutes!");
             }
         }
 
@@ -66,9 +73,9 @@ namespace MaverickClient
         {
             string TempToken;
 
-            string resp = client.Login(Username.Text, Password.Text, FingerPrint.Value(), out TempToken);
+            string resp = client.Login(Username.Text, Password.Text, out TempToken);
 
-            if (resp == "Login Accepted")
+            if (resp == "Login Found")
             {
                 Token = TempToken;
 
@@ -140,6 +147,20 @@ namespace MaverickClient
                 Hide();
                 new Main().ShowDialog();
             }
+            else if (resp == "Password Reset")
+            {
+                Console.Write("New Password: ");
+
+                //Show Reset Form
+                string NewPassword = Console.ReadLine();
+
+                Console.Write("Confirm Password: ");
+
+                string ConfirmPassword = Console.ReadLine();
+
+                if (NewPassword == ConfirmPassword)
+                    client.ResetPassword(Username.Text, NewPassword);
+            }
             else
             {
                 this.LoginWarning.Visible = true;
@@ -190,9 +211,9 @@ namespace MaverickClient
 
                     string TempToken;
 
-                    string resp = client.Login(Username.Text, Password.Text, FingerPrint.Value(), out TempToken);
+                    string resp = client.Login(Username.Text, Password.Text, out TempToken);
 
-                    if (resp == "Login Accepted")
+                    if (resp == "Login Found")
                     {
                         Token = TempToken;
 
@@ -201,6 +222,15 @@ namespace MaverickClient
                         this.Hide();
 
                         new Main().ShowDialog();
+                    }
+                    else if (resp == "Password Reset")
+                    {
+                        Console.Write("New Password: ");
+
+                        //Show Reset Form
+                        string NewPassword = Console.ReadLine();
+
+                        client.ResetPassword(Username.Text, NewPassword);
                     }
                     else
                     {

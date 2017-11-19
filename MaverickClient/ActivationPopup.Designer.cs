@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivationPopup));
             this.formSkin1 = new theme.FormSkin();
-            this.flatClose1 = new MaverickClient.Theme.FlatClose();
-            this.ActivationMessage = new theme.FlatLabel();
             this.OkayButton = new theme.FlatButton();
+            this.ActivationMessage = new theme.FlatLabel();
+            this.flatClose1 = new MaverickClient.Theme.FlatClose();
             this.formSkin1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,33 +53,7 @@
             this.formSkin1.Name = "formSkin1";
             this.formSkin1.Size = new System.Drawing.Size(367, 170);
             this.formSkin1.TabIndex = 1;
-            this.formSkin1.Text = "Maverick Cheats :: Activation";
-            // 
-            // flatClose1
-            // 
-            this.flatClose1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.flatClose1.BackColor = System.Drawing.Color.White;
-            this.flatClose1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(168)))), ((int)(((byte)(109)))));
-            this.flatClose1.Font = new System.Drawing.Font("Marlett", 10F);
-            this.flatClose1.Location = new System.Drawing.Point(337, 12);
-            this.flatClose1.Name = "flatClose1";
-            this.flatClose1.Size = new System.Drawing.Size(18, 18);
-            this.flatClose1.TabIndex = 9;
-            this.flatClose1.Text = "flatClose1";
-            this.flatClose1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            // 
-            // ActivationMessage
-            // 
-            this.ActivationMessage.BackColor = System.Drawing.Color.Transparent;
-            this.ActivationMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ActivationMessage.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.ActivationMessage.ForeColor = System.Drawing.Color.White;
-            this.ActivationMessage.Location = new System.Drawing.Point(0, 0);
-            this.ActivationMessage.Name = "ActivationMessage";
-            this.ActivationMessage.Size = new System.Drawing.Size(367, 170);
-            this.ActivationMessage.TabIndex = 130;
-            this.ActivationMessage.Text = "{Msg}";
-            this.ActivationMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.formSkin1.Text = "Maverick Cheats :: Key Activation";
             // 
             // OkayButton
             // 
@@ -95,6 +69,32 @@
             this.OkayButton.Text = "Okay";
             this.OkayButton.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.OkayButton.Click += new System.EventHandler(this.OkayButton_Click);
+            // 
+            // ActivationMessage
+            // 
+            this.ActivationMessage.BackColor = System.Drawing.Color.Transparent;
+            this.ActivationMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ActivationMessage.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.ActivationMessage.ForeColor = System.Drawing.Color.White;
+            this.ActivationMessage.Location = new System.Drawing.Point(0, 0);
+            this.ActivationMessage.Name = "ActivationMessage";
+            this.ActivationMessage.Size = new System.Drawing.Size(367, 170);
+            this.ActivationMessage.TabIndex = 130;
+            this.ActivationMessage.Text = "{Msg}";
+            this.ActivationMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flatClose1
+            // 
+            this.flatClose1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.flatClose1.BackColor = System.Drawing.Color.White;
+            this.flatClose1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(168)))), ((int)(((byte)(109)))));
+            this.flatClose1.Font = new System.Drawing.Font("Marlett", 10F);
+            this.flatClose1.Location = new System.Drawing.Point(337, 12);
+            this.flatClose1.Name = "flatClose1";
+            this.flatClose1.Size = new System.Drawing.Size(18, 18);
+            this.flatClose1.TabIndex = 9;
+            this.flatClose1.Text = "flatClose1";
+            this.flatClose1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             // 
             // ActivationPopup
             // 

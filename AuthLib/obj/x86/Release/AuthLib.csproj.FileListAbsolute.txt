@@ -1,0 +1,7 @@
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\bin\x86\Release\AuthLib.dll
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\bin\x86\Release\AuthLib.pdb
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\bin\x86\Release\Theme.dll
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\x86\Release\MaverickClient.Download.resources
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\x86\Release\AuthLib.csproj.GenerateResource.Cache
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\x86\Release\AuthLib.dll
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\x86\Release\AuthLib.pdb

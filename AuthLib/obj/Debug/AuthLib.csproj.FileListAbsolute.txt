@@ -1,8 +1,8 @@
-D:\Media\Documents\GitHub\MaverickCheats\Build\Debug\AuthLib.dll
-D:\Media\Documents\GitHub\MaverickCheats\Build\Debug\AuthLib.pdb
-D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Debug\AuthLib.csprojResolveAssemblyReference.cache
-D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Debug\MaverickClient.Download.resources
-D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Debug\AuthLib.csproj.GenerateResource.Cache
-D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Debug\AuthLib.csproj.CoreCompileInputs.cache
-D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Debug\AuthLib.dll
-D:\Media\Documents\GitHub\MaverickCheats\AuthLib\obj\Debug\AuthLib.pdb
+D:\Media\Documents\SourceTree\MaverickCheats\Build\Debug\AuthLib.dll
+D:\Media\Documents\SourceTree\MaverickCheats\Build\Debug\AuthLib.pdb
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\Debug\AuthLib.csprojResolveAssemblyReference.cache
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\Debug\MaverickClient.Download.resources
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\Debug\AuthLib.csproj.GenerateResource.Cache
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\Debug\AuthLib.csproj.CoreCompileInputs.cache
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\Debug\AuthLib.dll
+D:\Media\Documents\SourceTree\MaverickCheats\AuthLib\obj\Debug\AuthLib.pdb

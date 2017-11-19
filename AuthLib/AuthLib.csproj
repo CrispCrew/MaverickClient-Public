@@ -69,6 +69,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -77,7 +78,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Theme">
-      <HintPath>..\Libs\Theme.dll</HintPath>
+      <HintPath>..\..\..\Visual Studio 2017\Themes\Theme.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,7 @@
     <Compile Include="Functions\Callbacks\Prepare.cs" />
     <Compile Include="Functions\Callbacks\Request.cs" />
     <Compile Include="Functions\Client\Client.cs" />
+    <Compile Include="Functions\Fingerprint.cs" />
     <Compile Include="Functions\Logs\Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -99,5 +101,6 @@
       <DependentUpon>Download.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

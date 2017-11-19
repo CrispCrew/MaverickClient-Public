@@ -51,12 +51,10 @@ namespace AuthLib.Functions.Client
             clientSocket.NoDelay = true;
 
             //clientSocket.Connect("162.248.247.2", 6060); //Debug Server
-#if DEBUG
-            clientSocket.Connect("158.69.255.77", 6060); //Debug Server
-            Console.WriteLine("Running in Debug Mode, Using Local Server.");
-#else
+            //clientSocket.Connect("127.0.0.1", 6060); //Debug Server
+            //Console.WriteLine("Running in Debug Mode, Using Local Server.");
+
             clientSocket.Connect("158.69.255.77", 6969);
-#endif
         }
 
         /// <summary>
@@ -77,20 +75,11 @@ namespace AuthLib.Functions.Client
 
             string Response = API.SendAPIRequest(clientSocket, "Request=Version");
 
-            if (Response != "" && Response != "Invalid API Request" && Response != "Request Undefined")
-            {
-                return Response;
-            }
-            else
-            {
-                Log.Write("Version Check Failed: " + Response);
-            }
-
             Log.Write(timer.Elapsed.TotalMilliseconds + "ms");
 
             timer.Reset();
 
-            return "";
+            return Response;
         }
 
         /// <summary>
@@ -175,7 +164,7 @@ namespace AuthLib.Functions.Client
         /// <param name="HWID">Hardware ID</param>
         /// <param name="Token">Users Token</param>
         /// <returns></returns>
-        public string Login(string Username, string Password, string HWID, out string Token)
+        public string Login(string Username, string Password, out string Token)
         {
             string Success;
 
@@ -192,10 +181,8 @@ namespace AuthLib.Functions.Client
                     Log.Write("Prepare Failed: Username=" + Username);
                 else if (!Prepare.PrepareString(Password))
                     Log.Write("Prepare Failed: Password=" + Password);
-                else if (!Prepare.PrepareString(HWID))
-                    Log.Write("Prepare Failed: Password=" + HWID);
 
-                return "Malformed Credentials";
+                return "Empty Credentials";
             }
 
             //Sockets Connection
@@ -203,21 +190,21 @@ namespace AuthLib.Functions.Client
             Stopwatch timer = new Stopwatch();
             timer.Start();
 
-            string Response = API.SendAPIRequest(clientSocket, "Request=Login&Username=" + Username + "&Password=" + Password + "&HWID=" + HWID);
+            string Response = API.SendAPIRequest(clientSocket, "Request=Login&Username=" + Username + "&Password=" + Password + "&HWID=" + FingerPrint.Value());
 
             if (Response.Split('-')[0] == "Login Found")
             {
                 Token = Response.Split('-')[1];
 
-                Log.Write("Login Accepted: " + Username + " -> " + Password + " -> " + Token);
+                Log.Write("Login Found: " + Username + " -> " + Password + " -> " + Token);
 
-                Success = "Login Accepted";
+                Success = "Login Found";
             }
             else
             {
                 Log.Write("Error: Login not Found -> " + Response);
 
-                return Response;
+                Success = Response;
             }
 
             Log.Write(timer.Elapsed.TotalMilliseconds + "ms");
@@ -228,13 +215,50 @@ namespace AuthLib.Functions.Client
         }
 
         /// <summary>
+        /// Contacts server for Login Check
+        /// </summary>
+        /// <param name="Username">Username</param>
+        /// <param name="Password">Password</param>
+        /// <param name="HWID">Hardware ID</param>
+        /// <param name="Token">Users Token</param>
+        /// <returns></returns>
+        public string ResetPassword(string Username, string Password)
+        {
+            if (!clientSocket.Connected)
+                Connect();
+
+            CleanStream();
+
+            if (!Prepare.PrepareString(Password))
+            {
+                if (!Prepare.PrepareString(Password))
+                    Log.Write("Prepare Failed: Password=" + Password);
+
+                return "Empty Credentials";
+            }
+
+            //Sockets Connection
+            //Debug - Log Times
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+            string Response = API.SendAPIRequest(clientSocket, "Request=ResetPassword&Username=" + Username + "&Password=" + Password + "&HWID=" + FingerPrint.Value());
+
+            Log.Write(timer.Elapsed.TotalMilliseconds + "ms");
+
+            timer.Reset();
+
+            return Response;
+        }
+
+        /// <summary>
         /// Contacts server for Registeration Check
         /// </summary>
         /// <param name="Username"></param>
         /// <param name="Password"></param>
         /// <param name="HWID"></param>
         /// <returns></returns>
-        public string Register(string Username, string Password, string HWID)
+        public string Register(string Username, string Password)
         {
             string Success;
 
@@ -249,17 +273,15 @@ namespace AuthLib.Functions.Client
                     Log.Write("Prepare Failed: Username=" + Username);
                 else if (!Prepare.PrepareString(Password))
                     Log.Write("Prepare Failed: Password=" + Password);
-                else if (!Prepare.PrepareString(Password))
-                    Log.Write("Prepare Failed: HWID=" + HWID);
 
-                return "Malformed Credentials";
+                return "Empty Credentials";
             }
 
             //Debug - Log Times
             Stopwatch timer = new Stopwatch();
             timer.Start();
 
-            string Response = API.SendAPIRequest(clientSocket, "Request=Register&Username=" + Username + "&Password=" + Password + "&HWID=" + HWID);
+            string Response = API.SendAPIRequest(clientSocket, "Request=Register&Username=" + Username + "&Password=" + Password + "&HWID=" + FingerPrint.Value());
 
             if (Response == "Registration Successful")
             {
@@ -267,23 +289,11 @@ namespace AuthLib.Functions.Client
 
                 Success = "Registration Successful";
             }
-            else if (Response == "HWID Taken")
-            {
-                Log.Write("HWID Taken " + HWID);
-
-                Success = "HWID Taken";
-            }
-            else if (Response == "Username Taken")
-            {
-                Log.Write("Username Taken " + Username);
-
-                Success = "Username Taken";
-            }
             else
             {
                 Log.Write("Registration Failed: " + Username + " -> " + Password);
 
-                Success = "Unknown Error";
+                Success = Response;
             }
 
             Log.Write(timer.Elapsed.TotalMilliseconds + "ms");
@@ -355,7 +365,7 @@ namespace AuthLib.Functions.Client
                 if (!Prepare.PrepareString(Token))
                     Log.Write("Prepare Failed: Token=" + Token);
 
-                return null;
+                return "Empty Token";
             }
 
             //Sockets Connection
@@ -389,7 +399,7 @@ namespace AuthLib.Functions.Client
                 if (!Prepare.PrepareString(Token))
                     Log.Write("Prepare Failed: Token=" + Token);
 
-                return null;
+                return "Empty Token";
             }
 
             //Sockets Connection
@@ -425,7 +435,7 @@ namespace AuthLib.Functions.Client
                 if (!Prepare.PrepareString(Token))
                     Log.Write("Prepare Failed: Username=" + Token);
 
-                return null;
+                return "Empty Token";
             }
 
             //Sockets Connection
@@ -508,7 +518,7 @@ namespace AuthLib.Functions.Client
                 if (!Prepare.PrepareString(Token))
                     Log.Write("Prepare Failed: Token=" + Token);
 
-                return null;
+                return "Empty Token";
             }
 
             //Sockets Connection
@@ -541,7 +551,7 @@ namespace AuthLib.Functions.Client
                 if (!Prepare.PrepareString(Token))
                     Log.Write("Prepare Failed: Token=" + Token);
 
-                return null;
+                return "Empty Token";
             }
 
             //Sockets Connection

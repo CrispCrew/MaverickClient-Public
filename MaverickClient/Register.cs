@@ -1,5 +1,4 @@
 ﻿using AuthLib.Functions.Client;
-using CrispyCheats;
 using MaverickClient.Functions;
 using System;
 using System.IO;
@@ -39,12 +38,12 @@ namespace MaverickClient
             }
             else
             {
-                string resp = client.Register(Username.Text, Password.Text, FingerPrint.Value());
+                string resp = client.Register(Username.Text, Password.Text);
                 if (resp == "Registration Successful")
                 {
                     string TempToken;
 
-                    if (client.Login(Username.Text, Password.Text, FingerPrint.Value(), out TempToken) == "Login Accepted")
+                    if (client.Login(Username.Text, Password.Text, out TempToken) == "Login Found")
                     {
                         MaverickClient.Login.Token = TempToken;
 
@@ -200,6 +199,11 @@ namespace MaverickClient
             {
                 AutoLogin.Checked = false;
             }
+        }
+
+        private void formSkin1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

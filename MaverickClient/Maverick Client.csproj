@@ -106,10 +106,6 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AuthLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Build\Release\AuthLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -147,6 +143,7 @@
     <Compile Include="Credits.Designer.cs">
       <DependentUpon>Credits.cs</DependentUpon>
     </Compile>
+    <Compile Include="Functions\32bit.cs" />
     <Compile Include="Theme.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -158,7 +155,6 @@
       <DependentUpon>Activation.cs</DependentUpon>
     </Compile>
     <Compile Include="Functions\Encryption.cs" />
-    <Compile Include="Functions\FingerPrint.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +239,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="maverick_Xzv_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AuthLib\AuthLib.csproj">
+      <Project>{FC9178AC-C3E7-40E8-808A-29FD5B82171D}</Project>
+      <Name>AuthLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

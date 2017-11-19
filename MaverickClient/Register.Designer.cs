@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Register));
             this.formSkin1 = new theme.FormSkin();
+            this.LoginWarning = new theme.FlatLabel();
             this.ConfirmPassword = new System.Windows.Forms.TextBox();
             this.flatLabel1 = new theme.FlatLabel();
             this.Username = new System.Windows.Forms.TextBox();
@@ -42,7 +43,6 @@
             this.AutoLogin = new theme.FlatCheckBox();
             this.RememberMe = new theme.FlatCheckBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.LoginWarning = new theme.FlatLabel();
             this.formSkin1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +73,21 @@
             this.formSkin1.Name = "formSkin1";
             this.formSkin1.Size = new System.Drawing.Size(323, 310);
             this.formSkin1.TabIndex = 4;
-            this.formSkin1.Text = "CrispyCheats:: Activate";
+            this.formSkin1.Text = "Maverick Cheats :: Register";
+            this.formSkin1.Click += new System.EventHandler(this.formSkin1_Click);
+            // 
+            // LoginWarning
+            // 
+            this.LoginWarning.BackColor = System.Drawing.Color.Red;
+            this.LoginWarning.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoginWarning.ForeColor = System.Drawing.Color.White;
+            this.LoginWarning.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LoginWarning.Location = new System.Drawing.Point(0, 280);
+            this.LoginWarning.Name = "LoginWarning";
+            this.LoginWarning.Size = new System.Drawing.Size(323, 30);
+            this.LoginWarning.TabIndex = 130;
+            this.LoginWarning.Text = "Login Failed";
+            this.LoginWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ConfirmPassword
             // 
@@ -93,11 +107,11 @@
             this.flatLabel1.BackColor = System.Drawing.Color.Transparent;
             this.flatLabel1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.flatLabel1.ForeColor = System.Drawing.Color.White;
-            this.flatLabel1.Location = new System.Drawing.Point(101, 51);
+            this.flatLabel1.Location = new System.Drawing.Point(105, 51);
             this.flatLabel1.Name = "flatLabel1";
             this.flatLabel1.Size = new System.Drawing.Size(99, 30);
             this.flatLabel1.TabIndex = 126;
-            this.flatLabel1.Text = "Activate";
+            this.flatLabel1.Text = "Register";
             // 
             // Username
             // 
@@ -228,19 +242,6 @@
             this.RememberMe.Size = new System.Drawing.Size(127, 22);
             this.RememberMe.TabIndex = 3;
             this.RememberMe.Text = "Remember Me";
-            // 
-            // LoginWarning
-            // 
-            this.LoginWarning.BackColor = System.Drawing.Color.Red;
-            this.LoginWarning.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoginWarning.ForeColor = System.Drawing.Color.White;
-            this.LoginWarning.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.LoginWarning.Location = new System.Drawing.Point(0, 280);
-            this.LoginWarning.Name = "LoginWarning";
-            this.LoginWarning.Size = new System.Drawing.Size(323, 30);
-            this.LoginWarning.TabIndex = 130;
-            this.LoginWarning.Text = "Login Failed";
-            this.LoginWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Register
             // 

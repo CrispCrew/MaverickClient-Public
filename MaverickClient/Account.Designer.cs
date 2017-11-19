@@ -42,6 +42,7 @@
             this.memberDiscord = new theme.FlatLabel();
             this.memberShipID = new theme.FlatLabel();
             this.memberLicenses = new theme.FlatLabel();
+            this.showLicenses = new theme.FlatButton();
             this.formSkin1.SuspendLayout();
             this.flatGroupBox1.SuspendLayout();
             this.flatGroupBox2.SuspendLayout();
@@ -53,6 +54,7 @@
             this.formSkin1.BackColor = System.Drawing.Color.White;
             this.formSkin1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
             this.formSkin1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(58)))), ((int)(((byte)(60)))));
+            this.formSkin1.Controls.Add(this.showLicenses);
             this.formSkin1.Controls.Add(this.CloseButton);
             this.formSkin1.Controls.Add(this.LogoutButton);
             this.formSkin1.Controls.Add(this.flatGroupBox1);
@@ -65,7 +67,7 @@
             this.formSkin1.Name = "formSkin1";
             this.formSkin1.Size = new System.Drawing.Size(580, 406);
             this.formSkin1.TabIndex = 0;
-            this.formSkin1.Text = "Maverick Cheats :: Account";
+            this.formSkin1.Text = "Maverick Cheats :: Account Details";
             // 
             // CloseButton
             // 
@@ -73,7 +75,7 @@
             this.CloseButton.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(168)))), ((int)(((byte)(109)))));
             this.CloseButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CloseButton.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.CloseButton.Location = new System.Drawing.Point(293, 361);
+            this.CloseButton.Location = new System.Drawing.Point(233, 361);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Rounded = false;
             this.CloseButton.Size = new System.Drawing.Size(109, 34);
@@ -88,7 +90,7 @@
             this.LogoutButton.BaseColor = System.Drawing.Color.Red;
             this.LogoutButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.LogoutButton.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.LogoutButton.Location = new System.Drawing.Point(178, 361);
+            this.LogoutButton.Location = new System.Drawing.Point(118, 361);
             this.LogoutButton.Name = "LogoutButton";
             this.LogoutButton.Rounded = false;
             this.LogoutButton.Size = new System.Drawing.Size(109, 34);
@@ -225,7 +227,21 @@
             this.memberLicenses.Size = new System.Drawing.Size(118, 13);
             this.memberLicenses.TabIndex = 4;
             this.memberLicenses.Text = "License Keys: (hidden)";
-            this.memberLicenses.Visible = false;
+            // 
+            // showLicenses
+            // 
+            this.showLicenses.BackColor = System.Drawing.Color.Transparent;
+            this.showLicenses.BaseColor = System.Drawing.Color.Red;
+            this.showLicenses.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.showLicenses.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.showLicenses.Location = new System.Drawing.Point(348, 361);
+            this.showLicenses.Name = "showLicenses";
+            this.showLicenses.Rounded = false;
+            this.showLicenses.Size = new System.Drawing.Size(109, 34);
+            this.showLicenses.TabIndex = 140;
+            this.showLicenses.Text = "Show Licenses";
+            this.showLicenses.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.showLicenses.Click += new System.EventHandler(this.showLicenses_Click);
             // 
             // Account
             // 
@@ -268,5 +284,6 @@
         private theme.FlatLabel productInfoLabel;
         private theme.FlatButton LogoutButton;
         private theme.FlatButton CloseButton;
+        private theme.FlatButton showLicenses;
     }
 }

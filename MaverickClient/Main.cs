@@ -1,4 +1,5 @@
 ﻿using AuthLib.Functions.Client;
+using MaverickClient.Functions;
 using MaverickClient.Types;
 using System;
 using System.Collections.Generic;
@@ -34,16 +35,20 @@ namespace MaverickClient
             {
                 foreach (Product product in new List<Product>(products))
                 {
-                    Process[] processlist = Process.GetProcessesByName(product.name);
+                    Process[] processlist = Process.GetProcessesByName(product.processname);
 
                     if (processlist.Length > 0)
                     {
                         int productid = product.id;
                         string productname = product.name;
                         string productfile = product.file;
+                        string processname = product.processname;
 
-                        if (productid <= 0 || productname == null || productfile == null)
+                        if (product.status == 0 || productid <= 0 || productname == null || productfile == null || processname == null)
                             return;
+
+                        if (_32bit.ModuleExists(Process.GetProcessesByName(processname)[0], "crispycheats.dll"))
+                            goto Sleep;
 
                         if (File.Exists(Environment.CurrentDirectory + "\\" + productfile))
                         {
@@ -100,19 +105,22 @@ namespace MaverickClient
                                 archive.ExtractToDirectory(Environment.CurrentDirectory + "\\" + productname + "\\");
                                 archive.Dispose();
 
+                                Console.WriteLine("Cheat Preloaded - Waiting 120s to Auto Inject");
+
+                                bool exit = false;
+
+                                Task.Factory.StartNew(() =>
+                                {
+                                    while (Console.ReadKey().Key != ConsoleKey.Escape) ;
+                                    exit = true;
+                                });
+
+                                //Check if Process has loaded enough memory that we can likely load successfuly
+
                                 if (File.Exists(Environment.CurrentDirectory + "\\" + productname + "\\run.exe"))
                                 {
                                     Console.WriteLine("Cheat Preloaded - Waiting 120s to Auto Inject");
 
-                                    bool exit = false;
-
-                                    Task.Factory.StartNew(() =>
-                                    {
-                                        while (Console.ReadKey().Key != ConsoleKey.Escape) ;
-                                        exit = true;
-                                    });
-
-                                    //Check if Process has loaded enough memory that we can likely load successfuly
                                     int secs = 0;
                                     while (!exit && secs < 120)
                                     {
@@ -136,21 +144,48 @@ namespace MaverickClient
                                         secs++;
                                     }
 
-                                    Console.WriteLine("Cheat Launching!");
+                                    Console.WriteLine("Starting Injector");
 
                                     Process process = new Process();
                                     ProcessStartInfo startInfo = new ProcessStartInfo()
                                     {
                                         WorkingDirectory = Environment.CurrentDirectory + "\\" + productname + "\\",
-                                        //UseShellExecute = false,
                                         FileName = Environment.CurrentDirectory + "\\" + productname + "\\run.exe",
-                                        //WindowStyle = ProcessWindowStyle.Hidden,
-                                        //CreateNoWindow = true,
-                                        UseShellExecute = true,
+                                        WindowStyle = ProcessWindowStyle.Hidden,
+                                        UseShellExecute = false,
+                                        RedirectStandardOutput = true,
+                                        CreateNoWindow = true,
                                         Verb = "runas"
                                     };
                                     process.StartInfo = startInfo;
                                     process.Start();
+
+                                    Console.WriteLine("Started Injector");
+
+                                    while (!process.StandardOutput.EndOfStream)
+                                    {
+                                        Console.WriteLine(process.StandardOutput.ReadLine());
+                                    }
+
+                                    Console.WriteLine("Closing Injector");
+
+                                    Thread.Sleep(1000);
+
+                                    MessageBox.Show("Injection " + (_32bit.ModuleExists(Process.GetProcessesByName(processname)[0], "crispycheats.dll") ? "Successful" : "Failed {ProcModuleNotFound}"));
+
+                                    if (productname.ToLower() == "gta5")
+                                    {
+                                        if (!IsKeyLocked(Keys.NumLock))
+                                        {
+                                            MessageBox.Show("This cheat uses the Numpad ( by default ) and we noticed your Numlock is Disabled, please enable it.");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Injection Error: {MissingInjector}");
+
+                                    break;
                                 }
                             }
                         }
@@ -176,6 +211,7 @@ namespace MaverickClient
                     }
                 }
 
+                Sleep:
                 Thread.Sleep(1000);
             }
         } 
@@ -192,31 +228,33 @@ namespace MaverickClient
             {
                 if (!owned.Contains("|"))
                 {
-                    string[] product_details = owned.Split('-');
+                    string[] product_details = owned.Split(':');
 
                     int Id = Convert.ToInt32(product_details[0]); //UID
                     string Name = product_details[1]; //Product Name
                     string File = product_details[2]; //Product Media
-                    int Status = Convert.ToInt32(product_details[3]); //Product Status
-                    int Version = Convert.ToInt32(product_details[4]);
-                    long AutoLaunch = Convert.ToInt64(product_details[5]);
+                    string ProcessName = product_details[3]; //Product Media
+                    int Status = Convert.ToInt32(product_details[4]); //Product Status
+                    int Version = Convert.ToInt32(product_details[5]);
+                    long AutoLaunch = Convert.ToInt64(product_details[6]);
 
-                    products.Add(new Product(Id, Name, File, Status, Version, AutoLaunch));
+                    products.Add(new Product(Id, Name, ProcessName, File, Status, Version, AutoLaunch));
                 }
                 else
                 {
                     foreach (string product in owned.Split('|'))
                     {
-                        string[] product_details = product.Split('-');
+                        string[] product_details = product.Split(':');
 
                         int Id = Convert.ToInt32(product_details[0]); //UID
                         string Name = product_details[1]; //Product Name
                         string File = product_details[2]; //Product Media
-                        int Status = Convert.ToInt32(product_details[3]); //Product Status
-                        int Version = Convert.ToInt32(product_details[4]);
-                        long AutoLaunch = Convert.ToInt64(product_details[5]);
+                        string ProcessName = product_details[3]; //Product Media
+                        int Status = Convert.ToInt32(product_details[4]); //Product Status
+                        int Version = Convert.ToInt32(product_details[5]);
+                        long AutoLaunch = Convert.ToInt64(product_details[6]);
 
-                        products.Add(new Product(Id, Name, File, Status, Version, AutoLaunch));
+                        products.Add(new Product(Id, Name, ProcessName, File, Status, Version, AutoLaunch));
                     }
                 }
             }
@@ -265,7 +303,43 @@ namespace MaverickClient
                 flatComboBox1.Items.Add(product.name + " [ " + Product.ProductStatus(product.status) + " ] ");
             }
 
-            new Thread(ProcessScan).Start();
+            if (!File.Exists(Environment.CurrentDirectory + "\\AutoLaunch.txt"))
+            {
+                DialogResult dialogResult = MessageBox.Show("Would you like to use AutoLaunch?", "Auto Launch", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.No)
+                {
+                    File.WriteAllText(Environment.CurrentDirectory + "\\AutoLaunch.txt", "No");
+                }
+                else if (dialogResult == DialogResult.Yes)
+                {
+                    File.WriteAllText(Environment.CurrentDirectory + "\\AutoLaunch.txt", "Yes");
+
+                    new Thread(ProcessScan).Start();
+                }
+            }
+            else
+            {
+                if (new StreamReader(Environment.CurrentDirectory + "\\AutoLaunch.txt").ReadLine() == "Yes")
+                {
+                    new Thread(ProcessScan).Start();
+                }
+                else if (new StreamReader(Environment.CurrentDirectory + "\\AutoLaunch.txt").ReadLine() != "No")
+                {
+                    DialogResult dialogResult = MessageBox.Show("AutoLaunch.txt is corrupted, would you like to use AutoLaunch?", "Auto Launch", MessageBoxButtons.YesNo);
+
+                    if (dialogResult == DialogResult.No)
+                    {
+                        File.WriteAllText(Environment.CurrentDirectory + "\\AutoLaunch.txt", "No");
+                    }
+                    else if (dialogResult == DialogResult.Yes)
+                    {
+                        File.WriteAllText(Environment.CurrentDirectory + "\\AutoLaunch.txt", "Yes");
+
+                        new Thread(ProcessScan).Start();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -327,21 +401,45 @@ namespace MaverickClient
             int productid = 0;
             string productname = null;
             string productfile = null;
+            string processname = null;
 
-            foreach (Product product in products)
+            Console.WriteLine("Selected Index = " + flatComboBox1.SelectedIndex);
+
+            Product product = products[flatComboBox1.SelectedIndex];
+
+            Console.WriteLine("Product Name: " + product.name);
+
+            productid = product.id;
+            productname = product.name;
+            productfile = product.file;
+            processname = product.processname;
+
+            if (productid <= 0 || productname == null || productfile == null || processname == null)
+                return;
+
+            if (product.status == 0)
             {
-                if (flatComboBox1.Text.Contains(product.name))
-                {
-                    productid = product.id;
-                    productname = product.name;
-                    productfile = product.file;
+                MessageBox.Show("We're sorry, this cheat is updating. Check back later, Thanks.");
 
-                    break;
-                }
+                return;
             }
 
-            if (productid <= 0 || productname == null ||productfile == null)
+            if (Process.GetProcessesByName(processname).Length == 0)
+            {
+                MessageBox.Show("The game for this cheat is currently not running, please start " + processname);
+
                 return;
+            }
+
+            if (_32bit.ModuleExists(Process.GetProcessesByName(processname)[0], "crispycheats.dll"))
+            {
+                DialogResult dialogResult = MessageBox.Show("The cheat is already loaded, would you like to still continue?", "Cheat Already Loaded", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+            }
 
             if (File.Exists(Environment.CurrentDirectory + "\\" + productfile))
             {
@@ -394,25 +492,66 @@ namespace MaverickClient
                         Directory.CreateDirectory(Environment.CurrentDirectory + "\\" + productname + "\\");
                     }
 
-                    ZipArchive archive = ZipFile.Open(Environment.CurrentDirectory + "\\" + productfile, ZipArchiveMode.Update);
+                    ZipArchive archive = ZipFile.Open(Environment.CurrentDirectory + "\\" + productfile, ZipArchiveMode.Read);
                     archive.ExtractToDirectory(Environment.CurrentDirectory + "\\" + productname + "\\");
                     archive.Dispose();
 
+                    Console.WriteLine("Cheat Preloaded - Waiting 120s to Auto Inject");
+
+                    bool exit = false;
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        while (Console.ReadKey().Key != ConsoleKey.Escape) ;
+                        exit = true;
+                    });
+
+                    //Check if Process has loaded enough memory that we can likely load successfuly
+
                     if (File.Exists(Environment.CurrentDirectory + "\\" + productname + "\\run.exe"))
                     {
+                        Console.WriteLine("Starting Injector");
+
                         Process process = new Process();
                         ProcessStartInfo startInfo = new ProcessStartInfo()
                         {
                             WorkingDirectory = Environment.CurrentDirectory + "\\" + productname + "\\",
-                            //UseShellExecute = false,
                             FileName = Environment.CurrentDirectory + "\\" + productname + "\\run.exe",
-                            //WindowStyle = ProcessWindowStyle.Hidden,
-                            //CreateNoWindow = true,
-                            UseShellExecute = true,
+                            WindowStyle = ProcessWindowStyle.Hidden,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            CreateNoWindow = true,
                             Verb = "runas"
                         };
                         process.StartInfo = startInfo;
                         process.Start();
+
+                        Console.WriteLine("Started Injector");
+
+                        while (!process.StandardOutput.EndOfStream)
+                        {
+                            Console.WriteLine(process.StandardOutput.ReadLine());
+                        }
+
+                        Console.WriteLine("Closing Injector");
+
+                        Thread.Sleep(1000);
+
+                        MessageBox.Show("Injection " + (_32bit.ModuleExists(Process.GetProcessesByName(processname)[0], "crispycheats.dll") ? "Successful" : "Failed {ProcModuleNotFound}"));
+
+                        if (productname.ToLower() == "gta5")
+                        {
+                            if (!IsKeyLocked(Keys.NumLock))
+                            {
+                                MessageBox.Show("This cheat uses the Numpad ( by default ) and we noticed your Numlock is Disabled, please enable it.");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Injection Error: {MissingInjector}");
+
+                        return;
                     }
                 }
             }
@@ -489,31 +628,33 @@ namespace MaverickClient
             {
                 if (!owned.Contains("|"))
                 {
-                    string[] product_details = owned.Split('-');
+                    string[] product_details = owned.Split(':');
 
                     int Id = Convert.ToInt32(product_details[0]); //UID
                     string Name = product_details[1]; //Product Name
                     string File = product_details[2]; //Product Media
-                    int Status = Convert.ToInt32(product_details[3]); //Product Status
-                    int Version = Convert.ToInt32(product_details[4]);
-                    long AutoLaunch = Convert.ToInt64(product_details[5]);
+                    string ProcessName = product_details[3]; //Product Media
+                    int Status = Convert.ToInt32(product_details[4]); //Product Status
+                    int Version = Convert.ToInt32(product_details[5]);
+                    long AutoLaunch = Convert.ToInt64(product_details[6]);
 
-                    products.Add(new Product(Id, Name, File, Status, Version, AutoLaunch));
+                    products.Add(new Product(Id, Name, ProcessName, File, Status, Version, AutoLaunch));
                 }
                 else
                 {
                     foreach (string product in owned.Split('|'))
                     {
-                        string[] product_details = product.Split('-');
+                        string[] product_details = product.Split(':');
 
                         int Id = Convert.ToInt32(product_details[0]); //UID
                         string Name = product_details[1]; //Product Name
                         string File = product_details[2]; //Product Media
-                        int Status = Convert.ToInt32(product_details[3]); //Product Status
-                        int Version = Convert.ToInt32(product_details[4]);
-                        long AutoLaunch = Convert.ToInt64(product_details[5]);
+                        string ProcessName = product_details[3]; //Product Media
+                        int Status = Convert.ToInt32(product_details[4]); //Product Status
+                        int Version = Convert.ToInt32(product_details[5]);
+                        long AutoLaunch = Convert.ToInt64(product_details[6]);
 
-                        products.Add(new Product(Id, Name, File, Status, Version, AutoLaunch));
+                        products.Add(new Product(Id, Name, ProcessName, File, Status, Version, AutoLaunch));
                     }
                 }
             }
