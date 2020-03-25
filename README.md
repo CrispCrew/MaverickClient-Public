@@ -1,1 +1,1 @@
-# MaverickCheats Client
+# Maverick Client
